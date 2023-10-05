@@ -10,33 +10,28 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
 
-/**
- * @Entity
- */
+#[Entity]
 class ChildTestEntity
 {
     /**
      * @var int|null
-     *
-     * @Id
-     * @GeneratedValue
-     * @Column(type="integer")
      */
+    #[Id]
+    #[GeneratedValue]
+    #[Column(type: 'integer')]
     private $id;
 
     /**
      * @var string|null
-     *
-     * @Column(type="string")
      */
+    #[Column(type: 'string')]
     private $name;
 
     /**
      * @var ParentTestEntity
-     *
-     * @ManyToOne(targetEntity="ParentTestEntity", inversedBy="children")
-     * @JoinColumn(name="parent_id")
      */
+    #[ManyToOne(targetEntity: 'ParentTestEntity', inversedBy: 'children')]
+    #[JoinColumn(name: 'parent_id')]
     private $parent;
 
     /**

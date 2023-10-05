@@ -10,21 +10,19 @@ use Paysera\Pagination\Entity\Doctrine\ConfiguredQuery;
 use Paysera\Pagination\Entity\Pager;
 use Paysera\Pagination\Service\Doctrine\QueryAnalyser;
 use PHPUnit\Framework\TestCase;
+use InvalidArgumentException;
 
 class QueryAnalyserTest extends TestCase
 {
     /**
      * @dataProvider providerForInvalidData
-     * @expectedException \InvalidArgumentException
-     * @param QueryBuilder $queryBuilder
      */
     public function testAnalyseQueryWithInvalidData(QueryBuilder $queryBuilder)
     {
+        $this->expectException(InvalidArgumentException::class);
         $analyser = new QueryAnalyser();
-
         $configuredQuery = new ConfiguredQuery($queryBuilder);
         $pager = new Pager();
-
         $analyser->analyseQuery($configuredQuery, $pager);
     }
 
