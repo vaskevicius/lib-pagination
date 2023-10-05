@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  php:
+    image: registry.digitalarsenal.net/docker-images/php-fpm:8.1
+    volumes:
+      - .:/app:cached
+    working_dir: /app
+    container_name: lib_pagination

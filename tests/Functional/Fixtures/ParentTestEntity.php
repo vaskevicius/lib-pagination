@@ -11,39 +11,33 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\OneToMany;
 
-/**
- * @Entity()
- */
+#[Entity]
 class ParentTestEntity
 {
     /**
      * @var int|null
-     *
-     * @Id
-     * @GeneratedValue
-     * @Column(type="integer")
      */
+    #[Id]
+    #[GeneratedValue]
+    #[Column(type: 'integer')]
     private $id;
 
     /**
      * @var string|null
-     *
-     * @Column(type="string")
      */
+    #[Column(type: 'string')]
     private $name;
 
     /**
      * @var string|null
-     *
-     * @Column(type="string", nullable=true)
      */
+    #[Column(type: 'string', nullable: true)]
     private $groupKey;
 
     /**
      * @var ChildTestEntity[]|Collection
-     *
-     * @OneToMany(targetEntity="ChildTestEntity", mappedBy="parent")
      */
+    #[OneToMany(targetEntity: 'ChildTestEntity', mappedBy: 'parent')]
     private $children;
 
     public function __construct()

@@ -3,17 +3,15 @@ declare(strict_types=1);
 
 namespace Paysera\Pagination\Tests\Functional\Service\Doctrine;
 
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
-use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Doctrine\ORM\Tools\SchemaTool;
 use Paysera\Pagination\Tests\Functional\Fixtures\ChildTestEntity;
 use Paysera\Pagination\Tests\Functional\Fixtures\DateTimeEntity;
 use Paysera\Pagination\Tests\Functional\Fixtures\ParentTestEntity;
 use PHPUnit\Framework\TestCase;
 use Doctrine\ORM\Configuration;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 abstract class DoctrineTestCase extends TestCase
 {
@@ -47,10 +45,9 @@ abstract class DoctrineTestCase extends TestCase
         $config->setAutoGenerateProxyClasses(true);
         $config->setProxyDir(sys_get_temp_dir());
         $config->setProxyNamespace('PaginationTest\Doctrine');
-        $config->setMetadataDriverImpl(new AnnotationDriver(new AnnotationReader()));
-        $config->setQueryCacheImpl(new ArrayCache());
-        $config->setMetadataCacheImpl(new ArrayCache());
-        AnnotationRegistry::registerLoader('class_exists');
+        $config->setMetadataDriverImpl(new AttributeDriver([__DIR__ . '/../../Fixtures']));
+        $config->setQueryCache(new ArrayAdapter());
+        $config->setMetadataCache(new ArrayAdapter());
 
         return $config;
     }

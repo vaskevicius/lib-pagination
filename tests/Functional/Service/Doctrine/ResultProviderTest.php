@@ -29,7 +29,7 @@ class ResultProviderTest extends DoctrineTestCase
      */
     private $resultProvider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
